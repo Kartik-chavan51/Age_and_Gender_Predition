@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgeGenix</title>
+    <link rel="icon" type="image/jpg" href="{{ url_for('static', filename='logo1.jpg') }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            background: linear-gradient(135deg, #283618, #283618);
+            color: #fff;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .header-container {
+            background: #606c38;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 90%; /* Increased width from 80% to 90% for a wider div */
+            max-width: 900px; /* Increased max-width for more space */
+        }
+        .logo-text {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        h1 {
+            font-size: 36px;
+            color: #fefae0;
+            margin: 0;
+            font-family: 'Verdana', sans-serif;
+            font-weight: bolder;
+            white-space: nowrap; /* Ensures "Story" stays on the same line as the rest of the title */
+        }
+        p.subtitle {
+            font-size: 18px;
+            color: #fefae0;
+            font-weight: bold;
+            font-family: 'Georgia', serif;
+            margin: 0;
+            white-space: nowrap; /* Ensures "for you." stays on the same line as the rest of the subtitle */
+        }
+        h2.upload-instruction {
+            font-size: 26px;
+            color: #dda15e;
+            margin: 20px 0;
+            font-family: 'Verdana', sans-serif;
+        }
+        form {
+            background: #606c38;
+            padding: 20px;
+            border-radius: 10px;
+            display: block;
+            width: 80%;
+            max-width: 400px;
+        }
+        .form-group {
+            margin: 10px 0;
+        }
+        input[type="file"] {
+            display: none;
+        }
+        label {
+            padding: 15px 30px;
+            background-color: #023047;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Verdana', sans-serif;
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            padding: 15px 30px;
+            background-color: #023047;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: 0.3s;
+            font-family: 'Verdana', sans-serif;
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        img {
+            margin-top: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(213, 223, 39, 0.3);
+        }
+        .result-container {
+            background: #606c38;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 80%;
+            max-width: 800px;
+        }
+        .result-container h2 {
+            font-size: 24px;
+            color: #fefae0;
+            font-family: 'Verdana', sans-serif;
+        }
+        .result-container p {
+            font-size: 20px;
+            font-weight: bolder;
+            color: #fefae0;
+            font-family: 'Georgia', serif;
+        }
+    </style>
+</head>
+<body>
+    <div class="header-container">
+        <div class="logo-text">
+            <img src="{{ url_for('static', filename='logo1.jpg') }}" alt="AgeGenix Logo" style="width: 100px; height: 100px; border-radius: 5px;">
+            <div>
+                <h1>Decoding You: AI Unveils Your Story</h1>
+                <p class="subtitle">Unlock your identity with precision—quick, intelligent, and tailored just for you.</p>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="upload-instruction">Upload an Image</h2>
+    
+    <form method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="file1">Choose File</label>
+            <input type="file" name="file1" id="file1" accept="image/png">
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Upload">
+        </div>
+    </form>
+
+    {% if result %}
+        <div class="result-container">
+            <h2>Output: {{ result }}</h2>
+            <img src="{{ url_for('static', filename='input.png') }}" alt="Uploaded Image" width="300"/>
+            {% if "Male" in result %}
+                <p>"Strength isn't just muscle—it's resilience, courage, and heart."</p>
+            {% elif "Female" in result %}
+                <p>"She is fierce, she is bold, she is unstoppable."</p>
+            {% endif %}
+        </div>
+    {% endif %}
+</body>
+</html>
